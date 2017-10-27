@@ -8788,6 +8788,7 @@ $scope.choosePhotos = function() {
    */
   $scope.changeTotal = function(duration,charge){
     $scope.ChargeTotal = charge*100*duration.Value
+
   }
   /**
    * [加载蒙层，阻止用户交互，防止提交多次]
