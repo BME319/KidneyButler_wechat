@@ -256,7 +256,7 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
     function listenGetMsg (data) {
       console.info('getMsg')
       console.log(data)
-      if (!appState.background && (($rootScope.conversation.type == 'single' && $rootScope.conversation.id == data.msg.fromID) || ($rootScope.conversation.type == 'group' && $rootScope.conversation.id == data.msg.targetID))) return
+      // if (!appState.background && (($rootScope.conversation.type == 'single' && $rootScope.conversation.id == data.msg.fromID) || ($rootScope.conversation.type == 'group' && $rootScope.conversation.id == data.msg.targetID))) return
       // notify.add(data.msg)
       socket.emit('gotMsg', {msg: data.msg, userId: Storage.get('UID')})
     }
