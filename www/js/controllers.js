@@ -8778,7 +8778,7 @@ $scope.choosePhotos = function() {
   $scope.ChargeDuration = {Name:'一个月',Value:1}
   // 临时写的
   //$scope.doctor.charge3 = 0.01
-  $scope.ChargeTotal = $scope.doctor.charge4
+  $scope.ChargeTotal = $scope.doctor.charge4 *100
   /**
    * [根据选中购买时长改变总金额]
    * @Author   PXY
@@ -8787,7 +8787,8 @@ $scope.choosePhotos = function() {
    * @param    charge:Number     [主管医生每月收费]
    */
   $scope.changeTotal = function(duration,charge){
-    $scope.ChargeTotal = duration.Value *(charge*100)/100
+    $scope.ChargeTotal = charge*100*duration.Value
+
   }
   /**
    * [加载蒙层，阻止用户交互，防止提交多次]
@@ -8813,14 +8814,14 @@ $scope.choosePhotos = function() {
   $scope.SubmitRequest = function(doctorId,duration,totalAmount) {
     var applyDocPop = $ionicPopup.confirm({
       title: '主管医生申请',
-      template: '您正申请'+ $scope.doctor.name +'医生的主管医生服务，服务时长：'+duration+'个月，预付金额为'+totalAmount+'元。'+ '</br>'+'若医生同意了您的申请，在服务期间，主管医生服务将为您提供全面个性化的健康方案制定和调整，数据分析解读，免费的咨询和问诊服务。若医生拒绝了您的申请，预付金额将退还到您的账号。并且在等待医生审核期间，您将无法再次申请主管医生。是否提交申请？',
+      template: '您正申请'+ $scope.doctor.name +'医生的主管医生服务，服务时长：'+duration+'个月，预付金额为'+totalAmount/100+'元。'+ '</br>'+'若医生同意了您的申请，在服务期间，主管医生服务将为您提供全面个性化的健康方案制定和调整，数据分析解读，免费的咨询和问诊服务。若医生拒绝了您的申请，预付金额将退还到您的账号。并且在等待医生审核期间，您将无法再次申请主管医生。是否提交申请？',
       okText:'继续',
       cancelText:'取消'
     })
     applyDocPop.then(function(res){
       if(res){
         ionicLoadingshow()
-        console.log(totalAmount)
+        // console.log(totalAmount)
         var neworder = {
           'doctorId':doctorId,
           //freeFlag为1表示免费
@@ -8831,7 +8832,7 @@ $scope.choosePhotos = function() {
           'month':duration,
           'role': 'patient',
           // 微信支付以分为单位
-          'money': totalAmount * 100,
+          'money': totalAmount,
           'class': '04',
           'name': '主管医生',
           'notes': doctorId,
@@ -10549,25 +10550,17 @@ var patientId = Storage.get('UID')
       anonymous: $scope.post.anonymous
     }
     console.log('param',param)
-    if($scope.post.title == ''){
-       $ionicLoading.show({
-          template: '输入不能为空',
-          noBackdrop: false,
-          duration: 1000,
-          hideOnStateChange: true
-        })
-    }else{
-      Forum.newpost(param).then(function (data) {
-      console.log(data)
+    Forum.newpost(param).then(function (data) {
+        console.log(data)
       if (data.msg == 'success') {
-        $ionicLoading.show({
-          template: '发帖成功',
-          noBackdrop: false,
-          duration: 1000,
-          hideOnStateChange: true
-        })
-        $timeout(function () { $state.go('tab.allposts') }, 900)
-      }
+                $ionicLoading.show({
+                  template: '发帖成功',
+                  noBackdrop: false,
+                  duration: 1000,
+                  hideOnStateChange: true
+                })
+                $timeout(function () { $state.go('tab.allposts') }, 900)
+              }
     }, function (err) {
       $scope.hasDeliver = false
       $ionicLoading.show({
@@ -10577,8 +10570,7 @@ var patientId = Storage.get('UID')
         hideOnStateChange: true
       })
       console.log(err)
-    })
-   }
+    }) 
   }
 
    $scope.onClickCamera = function ($event) {
@@ -11111,25 +11103,17 @@ function imgModalInit () {
       postId:Storage.get('POSTID')
     }
     console.log('param',param)
-    if($scope.post.content == ''){
-      $ionicLoading.show({
-          template: '输入不能为空',
-          noBackdrop: false,
-          duration: 1000,
-          hideOnStateChange: true
-        })
-    }else{
-        Forum.comment(param).then(function (data) {
-      console.log(data)
+    Forum.comment(param).then(function (data) {
+        console.log(data)
       if (data.msg == 'success') {
-        $ionicLoading.show({
-          template: '提交成功',
-          noBackdrop: false,
-          duration: 1000,
-          hideOnStateChange: true
-        })
-        $timeout(function () { $ionicHistory.goBack() }, 900)
-      }
+                $ionicLoading.show({
+                  template: '提交成功',
+                  noBackdrop: false,
+                  duration: 1000,
+                  hideOnStateChange: true
+                })
+                $timeout(function () { $ionicHistory.goBack() }, 900)
+              }
     }, function (err) {
       $scope.hasDeliver = false
       $ionicLoading.show({
@@ -11140,7 +11124,6 @@ function imgModalInit () {
       })
       console.log(err)
     }) 
-   }  
   }
 
 }])
@@ -11166,25 +11149,17 @@ function imgModalInit () {
       at:Storage.get('AT'),
     }
     console.log('param',param)
-    if($scope.reply.content == ''){
-      $ionicLoading.show({
-          template: '输入不能为空',
-          noBackdrop: false,
-          duration: 1000,
-          hideOnStateChange: true
-        })
-    }else{
-      Forum.reply(param).then(function (data) {
-      console.log(data)
+    Forum.reply(param).then(function (data) {
+        console.log(data)
       if (data.msg == 'success') {
-        $ionicLoading.show({
-          template: '提交成功',
-          noBackdrop: false,
-          duration: 1000,
-          hideOnStateChange: true
-        })
-        $timeout(function () { $ionicHistory.goBack() }, 900)
-      }
+                $ionicLoading.show({
+                  template: '提交成功',
+                  noBackdrop: false,
+                  duration: 1000,
+                  hideOnStateChange: true
+                })
+                $timeout(function () { $ionicHistory.goBack() }, 900)
+              }
     }, function (err) {
       $scope.hasDeliver = false
       $ionicLoading.show({
@@ -11194,8 +11169,7 @@ function imgModalInit () {
         hideOnStateChange: true
       })
       console.log(err)
-    })   
-   }   
+    }) 
   }
 
 }])
