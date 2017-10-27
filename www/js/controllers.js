@@ -5477,9 +5477,9 @@ $scope.choosePhotos = function() {
               function (err) {
                 $ionicLoading.hide()
                 $ionicPopup.alert({
-                   title: '网络跑远啦',
-                   template: '请重新上传'
-                 })
+                  title: '网络有点问题',
+                  template: '请重新上传'
+                })
                 console.log(err)
               }
             )
@@ -5492,6 +5492,11 @@ $scope.choosePhotos = function() {
                 $ionicHistory.goBack()
               },
               function (err) {
+                $ionicLoading.hide()
+                $ionicPopup.alert({
+                  title: '网络有点问题',
+                  template: '请重新上传'
+                })
                 console.log(err)
               }
             )
