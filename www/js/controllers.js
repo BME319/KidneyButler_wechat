@@ -10549,17 +10549,25 @@ var patientId = Storage.get('UID')
       anonymous: $scope.post.anonymous
     }
     console.log('param',param)
-    Forum.newpost(param).then(function (data) {
-        console.log(data)
+    if($scope.post.title == ''){
+       $ionicLoading.show({
+          template: '输入不能为空',
+          noBackdrop: false,
+          duration: 1000,
+          hideOnStateChange: true
+        })
+    }else{
+      Forum.newpost(param).then(function (data) {
+      console.log(data)
       if (data.msg == 'success') {
-                $ionicLoading.show({
-                  template: '发帖成功',
-                  noBackdrop: false,
-                  duration: 1000,
-                  hideOnStateChange: true
-                })
-                $timeout(function () { $state.go('tab.allposts') }, 900)
-              }
+        $ionicLoading.show({
+          template: '发帖成功',
+          noBackdrop: false,
+          duration: 1000,
+          hideOnStateChange: true
+        })
+        $timeout(function () { $state.go('tab.allposts') }, 900)
+      }
     }, function (err) {
       $scope.hasDeliver = false
       $ionicLoading.show({
@@ -10569,7 +10577,8 @@ var patientId = Storage.get('UID')
         hideOnStateChange: true
       })
       console.log(err)
-    }) 
+    })
+   }
   }
 
    $scope.onClickCamera = function ($event) {
@@ -11102,17 +11111,25 @@ function imgModalInit () {
       postId:Storage.get('POSTID')
     }
     console.log('param',param)
-    Forum.comment(param).then(function (data) {
-        console.log(data)
+    if($scope.post.content == ''){
+      $ionicLoading.show({
+          template: '输入不能为空',
+          noBackdrop: false,
+          duration: 1000,
+          hideOnStateChange: true
+        })
+    }else{
+        Forum.comment(param).then(function (data) {
+      console.log(data)
       if (data.msg == 'success') {
-                $ionicLoading.show({
-                  template: '提交成功',
-                  noBackdrop: false,
-                  duration: 1000,
-                  hideOnStateChange: true
-                })
-                $timeout(function () { $ionicHistory.goBack() }, 900)
-              }
+        $ionicLoading.show({
+          template: '提交成功',
+          noBackdrop: false,
+          duration: 1000,
+          hideOnStateChange: true
+        })
+        $timeout(function () { $ionicHistory.goBack() }, 900)
+      }
     }, function (err) {
       $scope.hasDeliver = false
       $ionicLoading.show({
@@ -11123,6 +11140,7 @@ function imgModalInit () {
       })
       console.log(err)
     }) 
+   }  
   }
 
 }])
@@ -11148,17 +11166,25 @@ function imgModalInit () {
       at:Storage.get('AT'),
     }
     console.log('param',param)
-    Forum.reply(param).then(function (data) {
-        console.log(data)
+    if($scope.reply.content == ''){
+      $ionicLoading.show({
+          template: '输入不能为空',
+          noBackdrop: false,
+          duration: 1000,
+          hideOnStateChange: true
+        })
+    }else{
+      Forum.reply(param).then(function (data) {
+      console.log(data)
       if (data.msg == 'success') {
-                $ionicLoading.show({
-                  template: '提交成功',
-                  noBackdrop: false,
-                  duration: 1000,
-                  hideOnStateChange: true
-                })
-                $timeout(function () { $ionicHistory.goBack() }, 900)
-              }
+        $ionicLoading.show({
+          template: '提交成功',
+          noBackdrop: false,
+          duration: 1000,
+          hideOnStateChange: true
+        })
+        $timeout(function () { $ionicHistory.goBack() }, 900)
+      }
     }, function (err) {
       $scope.hasDeliver = false
       $ionicLoading.show({
@@ -11168,7 +11194,8 @@ function imgModalInit () {
         hideOnStateChange: true
       })
       console.log(err)
-    }) 
+    })   
+   }   
   }
 
 }])
