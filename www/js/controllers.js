@@ -4949,11 +4949,13 @@ $scope.choosePhotos = function() {
   $scope.submitMsg = function () {
     console.log('发送消息确认状态 '+$scope.counselstatus)
     if ($scope.counselstatus != 1) return nomoney()
+
     var template = {
       'userId': $scope.params.chatId, // 医生的UID
       'role': 'doctor',
       'postdata': {
-        'template_id': 'DWrM__2UuaLxYf5da6sKOQA_hlmYhlsazsaxYX59DtE',
+        'template_id': 'cVLIgOb_JvtFGQUA2KvwAmbT5B3ZB79cRsAM4ZKKK0k',
+        //'url': actionUrl,
         'data': {
           'first': {
             'value': '您有一个新的' + ($scope.params.counseltype == 1 ? '咨询' : ($scope.params.counseltype == 6 ? '加急咨询' : '问诊') ) + '消息，请及时处理',
