@@ -4951,42 +4951,42 @@ $scope.choosePhotos = function() {
     console.log('发送消息确认状态 '+$scope.counselstatus)
     if ($scope.counselstatus != 1) return nomoney()
 
-    // var template = {
-    //   'userId': $scope.params.chatId, // 医生的UID
-    //   'role': 'doctor',
-    //   'postdata': {
-    //     'template_id': 'cVLIgOb_JvtFGQUA2KvwAmbT5B3ZB79cRsAM4ZKKK0k',
-    //     //'url': actionUrl,
-    //     'data': {
-    //       'first': {
-    //         'value': '您有一个新的' + ($scope.params.counseltype == 1 ? '咨询' : ($scope.params.counseltype == 6 ? '加急咨询' : '问诊') ) + '消息，请及时处理',
-    //         'color': '#173177'
-    //       },
-    //       'keyword1': {
-    //         'value': $scope.params.counsel.counselId, // 咨询ID
-    //         'color': '#173177'
-    //       },
-    //       'keyword2': {
-    //         'value': $scope.params.counsel.patientId.name, // 患者信息（姓名，性别，年龄）
-    //         'color': '#173177'
-    //       },
-    //       'keyword3': {
-    //         'value': $scope.params.counsel.help, // 问题描述
-    //         'color': '#173177'
-    //       },
-    //       'keyword4': {
-    //         'value': $scope.params.counsel.time.substr(0, 10), // 提交时间
-    //         'color': '#173177'
-    //       },
-
-    //       'remark': {
-    //         'value': '感谢您的使用！',
-    //         'color': '#173177'
-    //       }
-    //     }
-    //   }
-    // }
-    // Mywechat.messageTemplate(template)
+    var actionUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfa2216ac422fb747&redirect_uri=https://media.haihonghospitalmanagement.com/proxy&response_type=code&scope=snsapi_userinfo&state=doctor_11_1_' +$scope.params.UID+ '_' + $scope.params.counsel.counselId + '&#wechat_redirect' 
+    var template = {
+      'userId': $scope.params.chatId, // 医生的UID
+      'role': 'doctor',
+      'postdata': {
+        'template_id': 'cVLIgOb_JvtFGQUA2KvwAmbT5B3ZB79cRsAM4ZKKK0k',
+        'url':actionUrl,
+        'data': {
+          'first': {
+            'value': '您有一个新的' + ($scope.params.counseltype == 1 ? '咨询' : ($scope.params.counseltype == 6 ? '加急咨询' : '问诊') ) + '消息，请及时处理',
+            'color': '#173177'
+          },
+          'keyword1': {
+            'value': $scope.params.counsel.counselId, // 咨询ID
+            'color': '#173177'
+          },
+          'keyword2': {
+            'value': $scope.params.counsel.patientId.name, // 患者信息（姓名，性别，年龄）
+            'color': '#173177'
+          },
+          'keyword3': {
+            'value': $scope.params.counsel.help, // 问题描述
+            'color': '#173177'
+          },
+          'keyword4': {
+            'value': $scope.params.counsel.time.substr(0, 10), // 提交时间
+            'color': '#173177'
+          },
+          'remark': {
+            'value': '感谢您的使用！',
+            'color': '#173177'
+          }
+        }
+      }
+    }
+    //Mywechat.messageTemplate(template)
     sendmsg($scope.input.text, 'text')
     $scope.input.text = ''
   }
