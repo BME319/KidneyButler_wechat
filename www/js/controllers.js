@@ -4829,7 +4829,9 @@ $scope.choosePhotos = function() {
         msg.diff = false
       }
     }
-    $scope.msgs[pos] = msg
+    $timeout(function () {
+      $scope.msgs[pos] = msg
+    }, 1000)
   }
   $scope.pushMsg = function (msg) {
     console.info('pushMsg')
