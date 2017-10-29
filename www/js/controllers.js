@@ -10010,9 +10010,11 @@ $scope.choosePhotos = function() {
                           console.error(err)
                         })
               } else {
-                setTimeout(function () {
-                  $state.go('consult-chat', {chatId: DoctorId})
-                }, 500)
+                $ionicLoading.show({ template: '发送中'})
+        setTimeout(function () {
+          $ionicLoading.hide()
+          $state.go('consult-chat', {chatId: DoctorId})
+        }, 2000)
               }
                 // });
           },
