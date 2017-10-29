@@ -1214,7 +1214,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
 }])
 
 // 绑定微信--手机号码验证--TDY
-.controller('bindwechatCtrl', ['$scope', '$state', '$interval', '$stateParams', 'Storage', 'User',  '$timeout', function ($scope, $state, $interval, $stateParams, Storage, User, $timeout) {
+.controller('bindwechatCtrl', ['$scope', '$state', '$interval', '$stateParams', 'Storage', 'User',  '$timeout', '$ionicPopup', function ($scope, $state, $interval, $stateParams, Storage, User, $timeout, $ionicPopup) {
   // Storage.set("personalinfobackstate","register")
 
   $scope.Verify = {Phone: '', Code: ''}
