@@ -4985,7 +4985,7 @@ $scope.choosePhotos = function() {
         }
       }
     }
-    Mywechat.messageTemplate(template)
+    //Mywechat.messageTemplate(template)
     sendmsg($scope.input.text, 'text')
     $scope.input.text = ''
   }
