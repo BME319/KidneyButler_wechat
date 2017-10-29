@@ -3217,7 +3217,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
 
   // 页面刷新
   $scope.Refresh = function () {
-    $window.location.reload()
+    GetTasks();
   }
 
   // 跳转至任务设置页面
