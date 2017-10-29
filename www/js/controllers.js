@@ -2044,17 +2044,26 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
         if (data.results.length) {
           $scope.HasUnreadMessages = true
             if (data.results[0].type==11) {
-                str1=data.results[0].title.split(",")[1]
-                str2=str1.split(":")[1]
-                str3=str2.split("}")[0]
-                $scope.newMes= "最新消息：医生"+str3+"给您发来一条聊天消息“"+data.results[0].description+"”"
+              try {
+                data.results[0].url = JSON.parse(data.results[0].url)
+                var docName = data.results[0].url.fromName
+              }catch(e){
+                var docName = "XXX"
+              }
+
+                // str1=data.results[0].title.split(",")[1]
+                // str2=str1.split(":")[1]
+                // str3=str2.split("}")[0]
+              $scope.newMes= "最新消息：医生"+docName+"给您发来一条聊天消息 “"+data.results[0].description+"”"
                 
             } else {
-                if(data.results[0].type==8){
-                   $scope.newMes= "最新消息：您的医生"+ data.results[0].description.split('主管医生')[1]
-                }else{
-                   $scope.newMes= "最新消息："+ data.results[0].description
-                }
+                // if(data.results[0].type==8){
+                // $scope.newMes ="最新消息: "+data.results[0].description
+                  
+                   // $scope.newMes= "最新消息：您的医生"+ data.results[0].description.split('主管医生')[1]
+                // }else{
+                $scope.newMes= "最新消息："+ data.results[0].description
+                // }
             } 
             if($scope.newMes.length>=80){
               $scope.newMes = $scope.newMes.slice(0,79)+ "..."
