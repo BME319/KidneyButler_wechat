@@ -2073,10 +2073,11 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
         console.log(err)
     })
   }
-  GetUnread()
+  
 
   $scope.$on('$ionicView.enter', function () {
     GetTasks()
+    GetUnread()
     $scope.HasUnreadMessages = Storage.get('unReadTxt')
     RefreshUnread = $interval(GetUnread, 60000)
   })
@@ -3694,6 +3695,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
 
   $scope.$on('$ionicView.enter', function () {
     $scope.HasUnreadMessages = Storage.get('unReadTxt')
+    GetUnread()
     RefreshUnread = $interval(GetUnread, 60000)
   })
 
@@ -7886,6 +7888,7 @@ $scope.choosePhotos = function() {
     // if (ionic.Platform.isIOS()) {
     //   $scope.mydocStyle = {'top': '95px'}
     // }
+    GetUnread()
     $scope.HasUnreadMessages = Storage.get('unReadTxt')
     RefreshUnread = $interval(GetUnread, 60000)
 
@@ -10104,7 +10107,9 @@ $scope.choosePhotos = function() {
 
   $scope.$on('$ionicView.enter', function () {
     $scope.loadMore()
+
     $scope.HasUnreadMessages = Storage.get('unReadTxt')
+    GetUnread()
     RefreshUnread = $interval(GetUnread, 60000)
   })
 
