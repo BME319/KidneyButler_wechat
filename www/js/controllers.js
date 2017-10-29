@@ -506,7 +506,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
               // 如果是已注册但未绑定微信用户的微信登录，则直接绑定微信并登录
               $q.all([
                 User.setUnionId({phoneNo:phoneNum,openId:Storage.get('patientunionid')}),
-                User.setOpenId({type:4,openId:Storage.get('openId'),userId:Storage.get('UID')})
+                User.setOpenId({type:2,openId:Storage.get('openId'),userId:Storage.get('UID')})
               ]).then(function(res){
                 // alert('setUnionId'+JSON.stringify(res))
                 if (Storage.get('wechatheadimgurl')) {
@@ -540,7 +540,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
               // 如果是导入用户（已注册，未绑定微信但没签协议），则绑定微信后去签协议
               $q.all([
                 User.setUnionId({phoneNo:phoneNum,openId:Storage.get('patientunionid')}),
-                User.setOpenId({type:4,openId:Storage.get('openId'),userId:Storage.get('UID')})
+                User.setOpenId({type:2,openId:Storage.get('openId'),userId:Storage.get('UID')})
               ]).then(function(res){
                 // alert('setUnionId'+JSON.stringify(res))
                 if (Storage.get('wechatheadimgurl')) {
@@ -649,7 +649,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
             User.updateAgree({userId:res.userNo,agreement:'0',role:'patient'}),
             User.setUnionId({phoneNo:register.Phone,openId:Storage.get('patientunionid')}),
             //type为4是指患者app端，若为微信则要改为2
-            User.setOpenId({type:4,openId:Storage.get('openId'),userId:Storage.get('UID')})
+            User.setOpenId({type:2,openId:Storage.get('openId'),userId:Storage.get('UID')})
           ]).then(function(succ){
             // alert('$Q返回' + JSON.stringify(succ))
             $ionicLoading.hide()
