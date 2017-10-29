@@ -10630,27 +10630,15 @@ var patientId = Storage.get('UID')
   //   })
   // }
   var photo_upload_display = function(serverId){
-    // $ionicLoading.show({
-    //     template:'头像更新中',
-    //     duration:5000
-    // })
    // 给照片的名字加上时间戳
-    var temp_photoaddress = Storage.get("UID") + "_" +  "myAvatar.jpg";
-    console.log(temp_photoaddress)
-    var temp_name = 'resized' + Storage.get("UID") + "_" +  "myAvatar.jpg";
-    Mywechat.download({serverId:serverId, name:temp_name})
+    var temp_photoaddress = Storage.get('UID') + '_' + new Date().getTime() + 'post.jpg'
+    Mywechat.download({serverId:serverId, name:temp_photoaddress})
     .then(function(res){
       //res.path_resized
       $timeout(function(){
-          // $ionicLoading.hide();
+          $ionicLoading.hide();
           //图片路径
-          $scope.myAvatar=CONFIG.mediaUrl + "uploads/photos/"+temp_name+'?'+new Date().getTime();
-          console.log($scope.myAvatar)
-          // $state.reload("tab.mine")
-          // Patient.editPatientDetail({userId:Storage.get("UID"),photoUrl:$scope.myAvatar}).then(function(r){
-          //   console.log(r);
-          // })
-          $scope.post.content[1].image.push($scope.myAvatar)
+          $scope.post.content[1].image.push(CONFIG.mediaUrl + 'uploads/photos/' + temp_photoaddress)
       },1000)
       
     },function(err){
@@ -11055,7 +11043,7 @@ function imgModalInit () {
         console.log(resizedpath)
         $scope.imageIndex = 0;
         //console.log($scope.imageIndex)
-        var resized = resizedpath.indexOf('resized')>-1? 7 :0
+        var resized = resizedpath.indexOf('resized')>-1 ? 7 :0
         var originalfilepath=CONFIG.imgLargeUrl+resizedpath.slice(resizedpath.lastIndexOf('/')+1).substr(resized)
         //console.log(originalfilepath)
         // $scope.doctorimgurl=originalfilepath;
