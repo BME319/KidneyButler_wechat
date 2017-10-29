@@ -506,7 +506,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
               // 如果是已注册但未绑定微信用户的微信登录，则直接绑定微信并登录
               $q.all([
                 User.setUnionId({phoneNo:phoneNum,openId:Storage.get('patientunionid')}),
-                User.setOpenId({type:4,openId:Storage.get('openId'),userId:Storage.get('UID')})
+                User.setOpenId({type:2,openId:Storage.get('openId'),userId:Storage.get('UID')})
               ]).then(function(res){
                 // alert('setUnionId'+JSON.stringify(res))
                 if (Storage.get('wechatheadimgurl')) {
@@ -540,7 +540,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
               // 如果是导入用户（已注册，未绑定微信但没签协议），则绑定微信后去签协议
               $q.all([
                 User.setUnionId({phoneNo:phoneNum,openId:Storage.get('patientunionid')}),
-                User.setOpenId({type:4,openId:Storage.get('openId'),userId:Storage.get('UID')})
+                User.setOpenId({type:2,openId:Storage.get('openId'),userId:Storage.get('UID')})
               ]).then(function(res){
                 // alert('setUnionId'+JSON.stringify(res))
                 if (Storage.get('wechatheadimgurl')) {
@@ -649,7 +649,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
             User.updateAgree({userId:res.userNo,agreement:'0',role:'patient'}),
             User.setUnionId({phoneNo:register.Phone,openId:Storage.get('patientunionid')}),
             //type为4是指患者app端，若为微信则要改为2
-            User.setOpenId({type:4,openId:Storage.get('openId'),userId:Storage.get('UID')})
+            User.setOpenId({type:2,openId:Storage.get('openId'),userId:Storage.get('UID')})
           ]).then(function(succ){
             // alert('$Q返回' + JSON.stringify(succ))
             $ionicLoading.hide()
@@ -1214,7 +1214,7 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
 }])
 
 // 绑定微信--手机号码验证--TDY
-.controller('bindwechatCtrl', ['$scope', '$state', '$interval', '$stateParams', 'Storage', 'User',  '$timeout', function ($scope, $state, $interval, $stateParams, Storage, User, $timeout) {
+.controller('bindwechatCtrl', ['$scope', '$state', '$interval', '$stateParams', 'Storage', 'User',  '$timeout', '$ionicPopup', function ($scope, $state, $interval, $stateParams, Storage, User, $timeout, $ionicPopup) {
   // Storage.set("personalinfobackstate","register")
 
   $scope.Verify = {Phone: '', Code: ''}
@@ -3226,7 +3226,8 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
 
   // 页面刷新
   $scope.Refresh = function () {
-    $window.location.reload()
+    GetTasks();
+    $scope.$broadcast('scroll.refreshComplete');
   }
 
   // 跳转至任务设置页面
@@ -4840,7 +4841,9 @@ $scope.choosePhotos = function() {
         msg.diff = false
       }
     }
-    $scope.msgs[pos] = msg
+    $timeout(function () {
+      $scope.msgs[pos] = msg
+    }, 1000)
   }
   $scope.pushMsg = function (msg) {
     console.info('pushMsg')
@@ -4956,11 +4959,14 @@ $scope.choosePhotos = function() {
   $scope.submitMsg = function () {
     console.log('发送消息确认状态 '+$scope.counselstatus)
     if ($scope.counselstatus != 1) return nomoney()
+
+    var actionUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfa2216ac422fb747&redirect_uri=https://media.haihonghospitalmanagement.com/proxy&response_type=code&scope=snsapi_userinfo&state=doctor_11_1_' +$scope.params.UID+ '_' + $scope.params.counsel.counselId + '&#wechat_redirect' 
     var template = {
       'userId': $scope.params.chatId, // 医生的UID
       'role': 'doctor',
       'postdata': {
-        'template_id': 'DWrM__2UuaLxYf5da6sKOQA_hlmYhlsazsaxYX59DtE',
+        'template_id': 'cVLIgOb_JvtFGQUA2KvwAmbT5B3ZB79cRsAM4ZKKK0k',
+        'url':actionUrl,
         'data': {
           'first': {
             'value': '您有一个新的' + ($scope.params.counseltype == 1 ? '咨询' : ($scope.params.counseltype == 6 ? '加急咨询' : '问诊') ) + '消息，请及时处理',
@@ -4982,7 +4988,6 @@ $scope.choosePhotos = function() {
             'value': $scope.params.counsel.time.substr(0, 10), // 提交时间
             'color': '#173177'
           },
-
           'remark': {
             'value': '感谢您的使用！',
             'color': '#173177'
@@ -4990,7 +4995,7 @@ $scope.choosePhotos = function() {
         }
       }
     }
-    Mywechat.messageTemplate(template)
+    //Mywechat.messageTemplate(template)
     sendmsg($scope.input.text, 'text')
     $scope.input.text = ''
   }
@@ -10635,27 +10640,15 @@ var patientId = Storage.get('UID')
   //   })
   // }
   var photo_upload_display = function(serverId){
-    // $ionicLoading.show({
-    //     template:'头像更新中',
-    //     duration:5000
-    // })
    // 给照片的名字加上时间戳
-    var temp_photoaddress = Storage.get("UID") + "_" +  "myAvatar.jpg";
-    console.log(temp_photoaddress)
-    var temp_name = 'resized' + Storage.get("UID") + "_" +  "myAvatar.jpg";
-    Mywechat.download({serverId:serverId, name:temp_name})
+    var temp_photoaddress = Storage.get('UID') + '_' + new Date().getTime() + 'post.jpg'
+    Mywechat.download({serverId:serverId, name:temp_photoaddress})
     .then(function(res){
       //res.path_resized
       $timeout(function(){
-          // $ionicLoading.hide();
+          $ionicLoading.hide();
           //图片路径
-          $scope.myAvatar=CONFIG.mediaUrl + "uploads/photos/"+temp_name+'?'+new Date().getTime();
-          console.log($scope.myAvatar)
-          // $state.reload("tab.mine")
-          // Patient.editPatientDetail({userId:Storage.get("UID"),photoUrl:$scope.myAvatar}).then(function(r){
-          //   console.log(r);
-          // })
-          $scope.post.content[1].image.push($scope.myAvatar)
+          $scope.post.content[1].image.push(CONFIG.mediaUrl + 'uploads/photos/' + temp_photoaddress)
       },1000)
       
     },function(err){
@@ -11060,7 +11053,7 @@ function imgModalInit () {
         console.log(resizedpath)
         $scope.imageIndex = 0;
         //console.log($scope.imageIndex)
-        var resized = resizedpath.indexOf('resized')>-1? 7 :0
+        var resized = resizedpath.indexOf('resized')>-1 ? 7 :0
         var originalfilepath=CONFIG.imgLargeUrl+resizedpath.slice(resizedpath.lastIndexOf('/')+1).substr(resized)
         //console.log(originalfilepath)
         // $scope.doctorimgurl=originalfilepath;
