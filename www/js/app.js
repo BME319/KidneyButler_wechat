@@ -34,7 +34,7 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
   //   $state.go('signin')
   // }
   $ionicPlatform.ready(function () {
-    //socket = io.connect(CONFIG.socketServer)
+    // socket = io.connect(CONFIG.socketServer)
     // console.log(14)
     var temp = $location.absUrl().split('=')
     // alert(temp)
@@ -196,6 +196,28 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
         } else {
           $state.go('signin')
         }
+        if (!Storage.get('patWechatPop')) {
+          $ionicPopup.show({
+            template: '我们的软件更新啦，点击查看新版本功能！',
+            title: '软件更新',
+            scope: $scope,
+            buttons: [
+              {
+                text: '取消',
+                type: 'button-small',
+                onTap: function (e) {}
+              },
+              {
+                text: '确定',
+                type: 'button-small button-positive ',
+                onTap: function (e) {
+                  window.open(encodeURI('http://mp.weixin.qq.com/s/cGQ8GTZ0_6YrmN7Ewx2bVA'))
+                }
+              }
+            ]
+          })
+          Storage.set('patWechatPop', true)
+        }
           // alert(wechatData.openid)
           // alert(wechatData.nickname)
       }, function (err) {
@@ -206,7 +228,7 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
     } else {
       $state.go('signin')
     }
-    version.checkUpdate($rootScope)
+    // version.checkUpdate($rootScope)
     // autoLogin.AutoLoginOrNot($rootScope)
     // ionic.Platform.fullScreen(true, true)
     // thisPatient = null
