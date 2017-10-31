@@ -200,7 +200,7 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
           $ionicPopup.show({
             template: '我们的软件更新啦，点击查看新版本功能！',
             title: '软件更新',
-            scope: $scope,
+            // scope: $scope,
             buttons: [
               {
                 text: '取消',
