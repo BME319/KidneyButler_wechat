@@ -7560,7 +7560,7 @@ $scope.choosePhotos = function() {
         $scope.notInfo = false
         break
       case '8':
-        $scope.varyMes = {name: '群体教育'}
+        $scope.varyMes = {name: '医生'}
         $scope.notInfo = false
         break
     }
