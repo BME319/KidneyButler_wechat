@@ -5596,19 +5596,18 @@ $scope.choosePhotos = function() {
     //     duration:5000
     // })
    // 给照片的名字加上时间戳
-    var temp_photoaddress = Storage.get("UID") + "_" +  "myAvatar.jpg";
+    var temp_photoaddress = Storage.get("UID") + "_" + new Date().getTime() + "healthinfo.jpg";
     console.log(temp_photoaddress)
-    var temp_name = 'resized' + Storage.get("UID") + "_" +  "myAvatar.jpg";
-    Mywechat.download({serverId:serverId, name:temp_name})
+    Mywechat.download({serverId:serverId, name:temp_photoaddress})
     .then(function(res){
       //res.path_resized
       $timeout(function(){
           // $ionicLoading.hide();
           //图片路径
-          $scope.myAvatar=CONFIG.mediaUrl + "uploads/photos/"+temp_name+'?'+new Date().getTime();
-          console.log($scope.myAvatar)
+          $scope.myHealthinfo=CONFIG.mediaUrl + "uploads/photos/"+ temp_photoaddress;
+          console.log($scope.myHealthinfo)
           // $state.reload("tab.mine")
-          $scope.health.imgurl.push($scope.myAvatar)
+          $scope.health.imgurl.push($scope.myHealthinfo)
     //       Patient.editPatientDetail({userId:Storage.get("UID"),photoUrl:$scope.myAvatar}).then(function(r){
     //         console.log(r);
     //       })
