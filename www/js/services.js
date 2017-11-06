@@ -35,11 +35,11 @@ angular.module('kidney.services', ['ionic', 'ngResource'])
   // version2Url: 'http://121.43.107.106:4060/api/v2/',
   baseUrl: 'https://docker2.haihonghospitalmanagement.com/api/v2/',
   urineConnectUrl: 'https://docker2.haihonghospitalmanagement.com/',
-  mediaUrl: 'https://df2.haihonghospitalmanagement.com/',
+  mediaUrl: 'http://df2.haihonghospitalmanagement.com/',
   // mediaUrl: 'http://121.43.107.106:8054/',
   socketServer: 'https://docker2.haihonghospitalmanagement.com/',
-  imgThumbUrl: 'https://df2.haihonghospitalmanagement.com/uploads/photos/resize',
-  imgLargeUrl: 'https://df2.haihonghospitalmanagement.com/uploads/photos/',
+  imgThumbUrl: 'http://df2.haihonghospitalmanagement.com/uploads/photos/resize',
+  imgLargeUrl: 'http://df2.haihonghospitalmanagement.com/uploads/photos/',
   //
   NiaodaifuUrl: 'https://open.niaodaifu.cn/wap/login',
 
