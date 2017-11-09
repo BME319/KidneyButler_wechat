@@ -5596,19 +5596,18 @@ $scope.choosePhotos = function() {
     //     duration:5000
     // })
    // 给照片的名字加上时间戳
-    var temp_photoaddress = Storage.get("UID") + "_" +  "myAvatar.jpg";
+    var temp_photoaddress = Storage.get("UID") + "_" + new Date().getTime() + "healthinfo.jpg";
     console.log(temp_photoaddress)
-    var temp_name = 'resized' + Storage.get("UID") + "_" +  "myAvatar.jpg";
-    Mywechat.download({serverId:serverId, name:temp_name})
+    Mywechat.download({serverId:serverId, name:temp_photoaddress})
     .then(function(res){
       //res.path_resized
       $timeout(function(){
           // $ionicLoading.hide();
           //图片路径
-          $scope.myAvatar=CONFIG.mediaUrl + "uploads/photos/"+temp_name+'?'+new Date().getTime();
-          console.log($scope.myAvatar)
+          $scope.myHealthinfo=CONFIG.mediaUrl + "uploads/photos/"+ temp_photoaddress;
+          console.log($scope.myHealthinfo)
           // $state.reload("tab.mine")
-          $scope.health.imgurl.push($scope.myAvatar)
+          $scope.health.imgurl.push($scope.myHealthinfo)
     //       Patient.editPatientDetail({userId:Storage.get("UID"),photoUrl:$scope.myAvatar}).then(function(r){
     //         console.log(r);
     //       })
@@ -9990,56 +9989,56 @@ $scope.choosePhotos = function() {
                   // alert('modifyError'+JSON.stringify(err))
                 })
               }
-              if (DoctorId == 'U201612291283') {
-                var time = new Date()
-                var gid = 'G' + $filter('date')(time, 'MMddHmsss')
-                        // var msgdata = $state.params.msg;
+              // if (DoctorId == 'U201612291283') {
+              //   var time = new Date()
+              //   var gid = 'G' + $filter('date')(time, 'MMddHmsss')
+              //           // var msgdata = $state.params.msg;
 
-                var d = {
-                  teamId: '10050278',
-                  counselId: data.results.counselId,
-                  sponsorId: DoctorId,
-                  patientId: patientId,
-                  consultationId: gid,
-                  status: '1'
-                }
-                msgContent.consultationId = gid
-                var msgTeam = {
-                  clientType: 'doctor',
-                  targetRole: 'doctor',
-                  contentType: 'custom',
-                  fromID: DoctorId,
-                  fromName: '陈江华',
-                  fromUser: {
-                    avatarPath: CONFIG.mediaUrl + 'uploads/photos/resized' + DoctorId + '_myAvatar.jpg'
-                  },
-                  targetID: '10050278',
-                  teamId: '10050278',
-                  targetName: '陈江华主任医师团队',
-                  targetType: 'group',
-                  status: 'send_going',
-                  newsType: 13,
-                  createTimeInMillis: Date.now(),
-                  content: msgContent
-                }
-                Communication.newConsultation(d)
-                        .then(function (con) {
-                          console.log(con)
-                            // socket.emit('newUser',{user_name:'陈江华'.name,user_id:DoctorId});
-                          socket.emit('message', {msg: msgTeam, to: '10050278', role: 'patient'})
-                          setTimeout(function () {
-                            $state.go('consult-chat', {chatId: DoctorId})
-                          }, 500)
-                        }, function (er) {
-                          console.error(err)
-                        })
-              } else {
-                $ionicLoading.show({ template: '发送中'})
+              //   var d = {
+              //     teamId: '10050278',
+              //     counselId: data.results.counselId,
+              //     sponsorId: DoctorId,
+              //     patientId: patientId,
+              //     consultationId: gid,
+              //     status: '1'
+              //   }
+              //   msgContent.consultationId = gid
+              //   var msgTeam = {
+              //     clientType: 'doctor',
+              //     targetRole: 'doctor',
+              //     contentType: 'custom',
+              //     fromID: DoctorId,
+              //     fromName: '陈江华',
+              //     fromUser: {
+              //       avatarPath: CONFIG.mediaUrl + 'uploads/photos/resized' + DoctorId + '_myAvatar.jpg'
+              //     },
+              //     targetID: '10050278',
+              //     teamId: '10050278',
+              //     targetName: '陈江华主任医师团队',
+              //     targetType: 'group',
+              //     status: 'send_going',
+              //     newsType: 13,
+              //     createTimeInMillis: Date.now(),
+              //     content: msgContent
+              //   }
+              //   Communication.newConsultation(d)
+              //           .then(function (con) {
+              //             console.log(con)
+              //               // socket.emit('newUser',{user_name:'陈江华'.name,user_id:DoctorId});
+              //             socket.emit('message', {msg: msgTeam, to: '10050278', role: 'patient'})
+              //             setTimeout(function () {
+              //               $state.go('consult-chat', {chatId: DoctorId})
+              //             }, 500)
+              //           }, function (er) {
+              //             console.error(err)
+              //           })
+              // } else {
+        $ionicLoading.show({ template: '发送中'})
         setTimeout(function () {
           $ionicLoading.hide()
           $state.go('consult-chat', {chatId: DoctorId})
         }, 2000)
-              }
+              //}
                 // });
           },
         function (err) {
