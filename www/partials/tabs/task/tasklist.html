@@ -6,8 +6,16 @@
         <ion-refresher pulling-text="下拉刷新" spinner='ripple' refreshing-text="。。。" on-refresh="Refresh()">
         </ion-refresher>
 
+        <ion-slide-box style="height:175px" show-pager="true" auto-play="true" >
+            <ion-slide>
+                <div style="text-align: center;" ><img src="img/banner1.png" style="width: 100%" ng-click="goinsurance()"></div>
+            </ion-slide>
+            <ion-slide>
+                <div style="text-align: center;" ><img src="img/banner2.png" style="width: 100%" ng-click="goHospital()"></div>
+            </ion-slide>
 
-        <div style="text-align: center;" ><img src="img/banner1@2x.png" style="width: 100%" ng-click="goinsurance()"></div>
+        </ion-slide-box>
+        
 
         <div id="uncompletedUserdetail" ng-if="unCompleted" style="text-align: center;margin:15px;">
             <p>请您完善个人信息，将会为您提供任务列表</p>

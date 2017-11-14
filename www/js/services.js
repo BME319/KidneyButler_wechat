@@ -42,6 +42,7 @@ angular.module('kidney.services', ['ionic', 'ngResource'])
   imgLargeUrl: 'https://media.haihonghospitalmanagement.com/uploads/photos/',
   //
   NiaodaifuUrl: 'https://open.niaodaifu.cn/wap/login',
+  hospitalUrl: 'https://yy.notepasses.com/h5/xingkang',
 
   cameraOptions: {
     cam: {

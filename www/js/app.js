@@ -686,6 +686,7 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
     //   }
 
     // })
+
     .state('tab.myMoney', {
       url: '/mine/Account',
       views: {
@@ -812,6 +813,13 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
       templateUrl: 'partials/insurance/insurance.html',
       controller: 'insuranceCtrl'
     })
+    .state('hospital', {
+      cache: false,
+      url: '/hospital',
+      templateUrl: 'partials/hospital.html',
+      controller: 'hospitalCtrl'
+
+    })
     .state('intension', {
       cache: false,
       url: '/intension',
@@ -849,7 +857,7 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
 .config(['$httpProvider', 'jwtOptionsProvider', function ($httpProvider, jwtOptionsProvider) {
   // 下面的getter可以注入各种服务, service, factory, value, constant, provider等, constant, provider可以直接在.config中注入, 但是前3者不行
   jwtOptionsProvider.config({
-    whiteListedDomains: ['application.haihonghospitalmanagement.com', '121.196.221.44', '121.43.107.106', 'testpatient.haihonghospitalmanagement.com', 'patient.haihonghospitalmanagement.com', 'localhost'],
+    whiteListedDomains: ['application.haihonghospitalmanagement.com', '121.196.221.44', '121.43.107.106', 'testpatient.haihonghospitalmanagement.com', 'patient.haihonghospitalmanagement.com', 'localhost', 'https://yy.notepasses.com/h5/xingkang'],
     tokenGetter: ['options', 'jwtHelper', '$http', 'CONFIG', 'Storage', '$state', '$ionicPopup', function (options, jwtHelper, $http, CONFIG, Storage, $state, $ionicPopup) {
          // console.log(config);
         // console.log(CONFIG.baseUrl);
