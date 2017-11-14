@@ -2018,6 +2018,10 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
   $scope.goinsurance = function () {
     $state.go('insurance')
   }
+  $scope.goHospital = function(){
+    $state.go('hospital')
+    // window.location="https://yy.notepasses.com/h5/xingkang"
+  }
   $scope.GoReport = function () {
     if($scope.unCompleted==false){
       $state.go('tab.Reports')
@@ -3210,7 +3214,9 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
   }
      // 清除
   $scope.$on('$destroy', function () {
-    $scope.modal.remove()
+    if($scope.modal) {
+      $scope.modal.remove()
+    }
   })
 
   // 修改日期格式Date → yyyy-mm-dd
@@ -5299,6 +5305,12 @@ $scope.choosePhotos = function() {
 //   })
 
 // }])
+.controller('hospitalCtrl', ['$scope', '$state', 'Storage','Devicedata', '$sce', 'CONFIG', function ( $scope, $state, Storage,Devicedata,$sce,CONFIG) {
+  $scope.navigation = $sce.trustAsResourceUrl(CONFIG.hospitalUrl)
+    // alert(JSON.stringify(data))
+ 
+
+}])
 
 // 健康详情--PXY
 .controller('HealthDetailCtrl', ['otherTask', '$scope', '$state', '$ionicHistory', '$ionicPopup', '$stateParams', '$ionicPopover', '$ionicModal', '$ionicScrollDelegate', '$ionicLoading', '$timeout', 'Dict', 'Health', 'Storage', 'Camera', 'CONFIG', 'Mywechat', '$location', function (otherTask, $scope, $state, $ionicHistory, $ionicPopup, $stateParams, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicLoading, $timeout, Dict, Health, Storage, Camera, CONFIG, Mywechat, $location) {
