@@ -820,6 +820,13 @@ angular.module('kidney', ['ionic', 'kidney.services', 'kidney.controllers', 'kid
       controller: 'hospitalCtrl'
 
     })
+    .state('sphygmometer', {
+      cache: false,
+      url: '/sphygmometer',
+      templateUrl: 'partials/sphygmometer.html',
+      controller: 'sphygmometerCtrl'
+
+    })
     .state('intension', {
       cache: false,
       url: '/intension',
