@@ -43,6 +43,7 @@ angular.module('kidney.services', ['ionic', 'ngResource'])
   //
   NiaodaifuUrl: 'https://open.niaodaifu.cn/wap/login',
   hospitalUrl: 'https://yy.notepasses.com/h5/xingkang',
+  sphygmometerUrl: 'https://item.m.jd.com/product/10628848793.html?&utm_source=iosapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL',
 
   cameraOptions: {
     cam: {

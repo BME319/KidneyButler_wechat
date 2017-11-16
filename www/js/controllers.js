@@ -2022,6 +2022,10 @@ angular.module('kidney.controllers', ['ionic', 'kidney.services', 'ngResource', 
     $state.go('hospital')
     // window.location="https://yy.notepasses.com/h5/xingkang"
   }
+   $scope.goSphygmometer = function(){
+    $state.go('sphygmometer')
+    // window.location="https://yy.notepasses.com/h5/xingkang"
+  }
   $scope.GoReport = function () {
     if($scope.unCompleted==false){
       $state.go('tab.Reports')
@@ -5305,8 +5309,15 @@ $scope.choosePhotos = function() {
 //   })
 
 // }])
-.controller('hospitalCtrl', ['$scope', '$state', 'Storage','Devicedata', '$sce', 'CONFIG', function ( $scope, $state, Storage,Devicedata,$sce,CONFIG) {
+.controller('hospitalCtrl', ['$scope','$sce', 'CONFIG', function ( $scope,$sce,CONFIG) {
   $scope.navigation = $sce.trustAsResourceUrl(CONFIG.hospitalUrl)
+    // alert(JSON.stringify(data))
+ 
+
+}])
+
+.controller('sphygmometerCtrl', ['$scope', '$sce', 'CONFIG', function ( $scope, $sce,CONFIG) {
+  $scope.navigation = $sce.trustAsResourceUrl(CONFIG.sphygmometerUrl)
     // alert(JSON.stringify(data))
  
 
